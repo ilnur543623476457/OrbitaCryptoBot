@@ -1,0 +1,31 @@
+{
+  "name": "bot-orbita",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "bybit": "nodemon priceBybitCoin.js",
+    "binance": "nodemon priceBinanceCoin.js",
+    "cryptoBybit": "nodemon receivingPairedCurrencyBybit.js",
+    "cryptoBinance": "nodemon receivingPairedCurrencyBinance.js",
+    "sortCoin": "nodemon exchangeСoins.js",
+    "prCoinForm": "nodemon processingCoinsBySpread.js",
+    "coinPerFiles": "nodemon coinPercentageFiles.js",
+    "test": "nodemon test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@binance/connector": "^3.5.0",
+    "axios": "^1.7.9",
+    "binance": "^2.15.1",
+    "bybit-api": "^3.10.27",
+    "dotenv": "^16.4.7",
+    "json": "^11.0.0",
+    "node-telegram-bot-api": "^0.66.0",
+    "nodemon": "^3.1.7",
+    "orderbooks": "^1.1.10",
+    "websocket": "^1.0.35"
+  },
+  "description": ""
+}
