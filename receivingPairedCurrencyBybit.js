@@ -1,5 +1,6 @@
 // *******************    BYBIT   ***********************
 const fs = require('fs');
+const exchangeСoins = require('./exchangeСoins');
 
 module.exports = function () {
   const fileName = 'bybit.txt';
@@ -18,6 +19,7 @@ module.exports = function () {
 
   clientBY.getTickers({ category: 'spot' })
     .then(result => {
+      // console.log(result);
       const arr = []
       var mon = result.result.list
       for (let i = 0; i < mon.length; i++) {
@@ -26,6 +28,7 @@ module.exports = function () {
       }
       console.log('монеты байбит получены');
       fs.writeFileSync(fileName, arr.join('\r\n'), 'utf-8', 'w');
+      exchangeСoins()
     })
     .catch(err => {
       console.error("getOrderBook error: ", err);

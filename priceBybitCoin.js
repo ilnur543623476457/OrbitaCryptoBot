@@ -4,6 +4,8 @@ require('dotenv').config()
 
 const { RestClientV5 } = require('bybit-api');
 const fs = require('fs');
+const processingCoinsBySpread = require('./processingCoinsBySpread')
+
 
 module.exports = function () {
 
@@ -30,11 +32,41 @@ module.exports = function () {
       }
       // console.log(prCoinBibtb);
       fs.writeFileSync(fileName, prCoinBibtb.join('\r\n'), 'utf-8', 'w');
+      processingCoinsBySpread()
     })
     .catch(err => {
       console.error("getOrderBook error: ", err);
     });
+
+  // fs.unlink(`./${fileName}`, (err) => {});
+  // fs.readFile('exchange coins.txt', 'utf8', async (err, databyb) => {
+  //   var databybcoin = databyb.split('\r\n')
+  //   for (let i = 0; i < databybcoin.length; i++) {
+  //     const element = databybcoin[i];
+  //     clientBY.getOrderbook({
+  //       category: 'spot',
+  //       symbol: element,
+  //     }).then((response) => {
+  //       var CoinName = response.result.s // coin name
+  //       var AskRedSt = response.result.a[0][0] // Ask red st
+  //       var BidGreenSt = response.result.b[0][0] // Bid green st
+  //       var stCoinBybit = `${CoinName}, 'green st:', ${BidGreenSt}, 'red st:', ${AskRedSt}`
+  //       // console.log(`${CoinName}, 'green st:', ${BidGreenSt}, 'red st:', ${AskRedSt}`);
+  //       fs.appendFileSync(fileName, `${stCoinBybit}\r\n`, 'utf-8', 'a');
+  //     }).catch((error) => {
+  //       console.error(error);
+  //     });
+  //   }
+  // })
 }
+
+
+
+
+
+
+
+
 
 
 // const {WebsocketClient} = require('bybit-api') ;

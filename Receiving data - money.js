@@ -1,25 +1,15 @@
 // *******************    Receiving data - money  ***********************
 const ReceivingCoinBinance = require('./receivingPairedCurrencyBinance');
 const ReceivingCoinBybit = require('./receivingPairedCurrencyBybit');
-const exchangeСoins = require('./exchangeСoins');
-const recCoinPrice = require('./Receiving data - percent')
+const fs = require('fs');
+// const recCoinPrice = require('./Receiving data - percent')
 module.exports = (chatId, bot) => {
+    fs.mkdir('5 minutes result coin/байбит -> бинанс', { recursive: true }, err => { });
+    fs.mkdir('5 minutes result coin/бинанс -> байбит', { recursive: true }, err => { });
     ReceivingCoinBinance(); // Получение пар монет с бинанса
     ReceivingCoinBybit(); // Получение пар монет с Байбита
-    setTimeout(() => {
-        exchangeСoins(); // получение одинаковых монет на байбит и бинанс
-    }, 2000);
-    setTimeout(() => {
-        recCoinPrice(chatId, bot)
-    }, 3000);
     setInterval(() => {
         ReceivingCoinBinance(); // Получение пар монет с бинанса
         ReceivingCoinBybit(); // Получение пар монет с Байбита
-        setTimeout(() => {
-            exchangeСoins(); // получение одинаковых монет на байбит и бинанс
-        }, 2000);
-        setTimeout(() => {
-            recCoinPrice(chatId, bot)
-        }, 3000);
     }, 3600000 * 24);
 }

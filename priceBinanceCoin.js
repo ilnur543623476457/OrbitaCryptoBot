@@ -16,7 +16,7 @@ module.exports = function () {
   });
 
   client
-    .getSymbolOrderBookTicker({ category: 'spot' }).then((result) => {
+    .getSymbolOrderBookTicker().then((result) => {
       var binb = result.length
       var prCoinBinbn = []
       for (let i = 0; i < binb; i++) {

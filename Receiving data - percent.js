@@ -1,7 +1,7 @@
 // *******************    Receiving data - percent  ***********************
 const priceBinanceCoin = require('./priceBinanceCoin');
 const priceBybitCoin = require('./priceBybitCoin');
-const processingCoinsBySpread = require('./processingCoinsBySpread')
+// const processingCoinsBySpread = require('./processingCoinsBySpread')
 const coinPercentageFiles = require('./coinPercentageFiles')
 const deletingFilesWithInterest = require('./deletingFilesWithInterest')
 const fs = require('fs');
@@ -10,18 +10,22 @@ const fs = require('fs');
 module.exports = (chatId, bot) => {
     setInterval(() => {
         priceBinanceCoin() // Получение цен пар монет с бинанса
-        priceBybitCoin() // Получение цен пар монет с Байбита
         setTimeout(() => {
-            processingCoinsBySpread() // сортировка и получение процента прибыли по формуле
-        }, 2000);
+            priceBybitCoin() // Получение цен пар монет с Байбита
+        }, 300);
     }, 30000);
+    // setInterval(() => {
+    //     processingCoinsBySpread()
+    // }, 40000);
     setInterval(() => {
         coinPercentageFiles() // получение и запись пар монет (прибыль) каждые 5 мин
     }, 306000)
     setInterval(() => {
         rectCoin(bot, chatId)
+    }, 307000);
+    setInterval(() => {
         deletingFilesWithInterest() // удаление файлов процента прибыли по формуле
-    }, 307000)
+    }, 308000)
 }
 
 const rectCoin = (bot, chatId) => {
@@ -32,7 +36,7 @@ const rectCoin = (bot, chatId) => {
             var now = new Date();
             fs.readFile('./5 minutes result coin/5 minute results bybit -> binance.txt', 'utf8', (err, dataByb) => {
                 fs.readFile('./5 minutes result coin/5 minute results binance -> bybit.txt', 'utf8', (err, dataBin) => {
-                    bot.sendMessage(chatId, `Дата: ${now.getDate()}.${now.getMonth()}.${now.getFullYear()} Время: ${now.getHours()}:${now.getMinutes()}\n\nbybit -> binance\n${dataByb}\n\nbinance -> bybit\n${dataBin}`)
+                    bot.sendMessage(chatId, `Время: ${now.getHours()}:${now.getMinutes()}\n\nbybit -> binance\n${dataByb}\n\nbinance -> bybit\n${dataBin}`)
                 })
             })
         } else {
